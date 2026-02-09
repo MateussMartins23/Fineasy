@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fineasy</title>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Fineasy</h1>
+        <nav>
+            <ul>
+                <a href="">Início</a>
+                <a href="">Relatórios</a>
+                <a href="">Perfil</a>
+                <button id="theme-toggle" class="theme-btn" title="Alternar tema">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="Incio">
+        <div class="mes-atual">
+            <div class="text-status">
+                <h1>Mês atual: (mes atual ano)</h1>
+                <div class="status">
+                    <h2>STATUS</h2>
+                </div>
+
+            </div>
+            <button class="Fechar-MesBTN">Fechar mês > </button>
+        </div>
+
+
+        <div class="resumo-Geral">
+            <div class="container">
+                <div class="nova-mov">
+                    <div class="text-NovaMOV">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+                        <h1>Nova movimentação</h1>
+                    </div>
+                    <div class="form">
+
+                        <form class="form-mov" action="">
+                            <h4>Tipo:</h4>
+                            <select id="categoria-select" name="categoria_id" class="field" required>
+                                <option value="" disabled selected>Carregando categorias...</option>
+                            </select>
+                            <input class="field" type="text" placeholder="Valor">
+                            <input class="field" type="text" placeholder="Descrição">
+                            <button class="field" type="submit">Adicionar</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="ResumoDoMes">
+                    <div class="resumo">
+                        <div class="text-ResumodoMes">
+                            <h1>Resumo Mensal</h1>
+                        </div>
+                        <div class="cards">
+                            <div class="card_1">
+                                <h2>Entradas</h2>
+                                <h3>R$3500.00</h3>
+                            </div>
+                            <div class="card_2">
+                                <h2>Saidas</h2>
+                                <h3>R$2705.33</h3>
+                            </div>
+                            <div class="card_3">
+                                <h2>Investimento</h2>
+                                <h3>R$600.00</h3>
+                            </div>
+                            <div class="card_4">
+                                <h2>Saldo Atual</h2>
+                                <h3>R$194.67</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="baixo">
+                        <div class="ultimas-movimentacoes">
+                            <div class="header">
+                                <h3>Últimas movimentações</h3>
+                            </div>
+
+                            <div class="lista">
+                                <div class="item">
+                                    <span class="descricao">desc teste</span>
+                                    <span class="data">12/12/2025</span>
+                                    <span class="valor">R$487,43</span>
+                                </div>
+                                <div class="item">
+                                    <span class="descricao">desc teste</span>
+                                    <span class="data">12/12/2025</span>
+                                    <span class="valor">R$200,43</span>
+                                </div>
+                           
+
+
+                            </div>
+                            <button class="btn-ver-todas">
+                                Ver todas movimentações
+                            </button>
+
+                        </div>
+
+                        <div class="Grafico-Despesas">
+                            <h3>Gráfico de Despesas</h3>
+
+                            <div class="grafico-container">
+                                <canvas id="graficoDespesas"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+    <script src="theme-toggle.js"></script>
+</body>
+</html>
+
+
+    <script src="grafico.js"></script>
+
+
+</body>
+
+
+
+
+
+
+</html>
