@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ptbr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fineasy</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -49,6 +49,7 @@
                     <h2>STATUS</h2>
                 </div>
 
+                    
             </div>
             <button class="Fechar-MesBTN">Fechar mês > </button>
         </div>
@@ -72,6 +73,12 @@
                             <h4>Tipo:</h4>
                             <select id="categoria-select" name="categoria_id" class="field" required>
                                 <option value="" disabled selected>Carregando categorias...</option>
+                                <option value="">
+                                    {%for categoria in categorias%}
+                                        <option value="{{categoria}}">{{categoria}}</option>
+
+                                    {%endfor%}
+                                </option>
                             </select>
                             <input class="field" type="text" placeholder="Valor">
                             <input class="field" type="text" placeholder="Descrição">
@@ -151,12 +158,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  
-    <script src="theme-toggle.js"></script>
+    <script src="../statics/theme-toggle.js"></script>
 </body>
 </html>
 
 
-    <script src="grafico.js"></script>
+    <script src="../statics/grafico.js"></script>
 
 
 </body>

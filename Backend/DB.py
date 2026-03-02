@@ -64,10 +64,6 @@ def init_DB():
         if con:
             con.close()
     
-    
-    
-
-
 
 ################################ CRIAR MOVIMENTAÇÂO #####################################
 
@@ -99,20 +95,47 @@ def get_categoria_id(categoria):
     row=cur.fetchone()
     return row[0] if row else None
     
-def criar_categoria(nome, tipo):
+def criar_categoria(nome,tipo):
+    con=get_connection()
+    cur=con.cursor()
+    
+    try:
+        cur.execute("INSERT INTO categoria (nome,tipo) VALUES (?,?)",(nome,tipo,))
+        con.commit()
+    except Exception as e:
+        print("Erro",e)
+    finally:
+        con.close()
+      
+
+def listar_categorias():
+    entradas=[]
+    saidas=[]
+    investimentos=[]
+    
     con = get_connection()
     cur = con.cursor()
+    
+    categorias = []
+    
     try:
-        cur.execute(
-            "INSERT INTO categoria (nome, tipo) VALUES (?, ?)",
-            (nome, tipo)
-        )
-        con.commit()   
-    except Exception as e:
-        print("Erro ao criar categoria:", e)
-    finally:
-        con.close()    
+        cur.execute("""
+        SELECT nome, tipo 
+        FROM categoria
+        """)
+    
+        rows = cur.fetchall()
+    #MELHORAR O MÉTODO DE IMPRESSÃO DPS
+        for row in rows:
+            categorias.append(row['nome'])
 
+                  
+        return categorias
+    except Exception as e: 
+        print("Erro", e)
+        
+    finally:
+        con.close()
 
     
 #Manejamento dos MESES
