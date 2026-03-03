@@ -152,6 +152,22 @@ def iniciar_meses(ano):
     con.commit()
     con.close()
     
+    
+def obter_nome_mes(numero):
+    meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", 
+        "Maio", "Junho", "Julho", "Agosto", 
+        "Setembro", "Outubro", "Novembro", "Dezembro"
+    ]
+    
+    # Verificamos se o número está no intervalo de 1 a 12
+    if 1 <= numero <= 12:
+        return meses[numero - 1] # -1 porque listas começam no índice 0
+    else:
+        return "Mês inválido"
+
+# Exemplo de uso:
+# # Saída: Maio
 
 def obter_mes_atual():
 
