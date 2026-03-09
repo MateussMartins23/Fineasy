@@ -904,7 +904,7 @@ html[data-theme="light"] button.field:hover {
 
 .item {
     display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr;
+    grid-template-columns: 2fr 1fr 1.5fr 1fr;
     align-items: center;
     padding: 12px 14px;
     border-radius: 12px;
@@ -957,4 +957,20 @@ html[data-theme="light"] button.field:hover {
     cursor: pointer;
     transition: all 0.25s ease;
     flex-shrink: 0;
+}
+
+.hidden{
+    opacity: 0;
+}
+
+.trash{
+    background: none;
+    margin-left: 10px;
+    border: none;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.trash:hover{
+    opacity: 1;
 }

@@ -20,6 +20,13 @@ def nova_mov():
     
     return redirect(url_for('home'))
 
+@app.route('/delete_mov',methods=['POST'])
+def del_mov():
+    mov_id=request.form['id']
+    DB.del_mov(mov_id)
+
+    return redirect(url_for('home'))
+
 if __name__ == "__main__":
     app.run(debug=True)
     

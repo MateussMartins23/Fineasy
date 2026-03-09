@@ -97,7 +97,7 @@ def listar_movimentacoes():
     cur=con.cursor()
 
     try:
-        cur.execute("""SELECT descricao,data,valor FROM movimentacao""")
+        cur.execute("""SELECT id,descricao,data,valor FROM movimentacao""")
         rows=cur.fetchall()
 
         return rows
@@ -107,7 +107,19 @@ def listar_movimentacoes():
         con.close()
 
 
+def del_mov(mov_id):
+    con=get_connection()
+    cur=con.cursor()
 
+    try:
+        cur.execute('''DELETE FROM movimentacao WHERE id=?''',(mov_id,))
+
+        con.commit()
+    except Exception as e:
+        print("Erro ao deletar movimentação",e)
+        
+    finally:
+        con.close()
 
 
 
