@@ -5,7 +5,10 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     categorias=DB.listar_categorias()
-    return render_template("index.html",categorias=categorias)
+    mes_aberto=DB.monstrar_mes_aberto()
+    
+
+    return render_template("index.html",categorias=categorias,mes_aberto=mes_aberto)
 
 
 

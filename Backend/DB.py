@@ -161,7 +161,7 @@ def obter_nome_mes(numero):
     ]
     
     # Verificamos se o número está no intervalo de 1 a 12
-    if 1 <= numero <= 12:
+    if numero>=1 and numero<=12:
         return meses[numero - 1] # -1 porque listas começam no índice 0
     else:
         return "Mês inválido"
@@ -171,7 +171,7 @@ def obter_nome_mes(numero):
 
 def obter_mes_atual():
 
-    con = sqlite3.connect("fin.db")
+    con = sqlite3.connect("./Backend/fin.db")
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
@@ -201,12 +201,40 @@ def obter_mes_atual():
     mes_id = cur.lastrowid
     con.close()
 
-    return mes_id
+    return int(mes_id)
 
 
+def abrir_mes(mes, ano):
+    con = get_connection()
+    cur = con.cursor()
+    con.row_factory = sqlite3.Row
+    try:
+        cur.execute(
+            '''UPDATE mes 
+               SET status = ?
+               WHERE mes = ? AND ano = ?''',
+            ('ABERTO', mes, ano)
+        )
+        con.commit()
+
+    except Exception as e:
+        print("Erro ao abrir o mês:", e)
+
+    finally:
+        con.close()
     
-    
-    #FECHANDO QUALQUER OUTRO MES ABERTO
+def monstrar_mes_aberto():
+    con=get_connection()
+    cur=con.cursor()
+
+
+    cur.execute('''SELECT mes FROM mes WHERE status='ABERTO' ''')
+    nome=cur.fetchall()
+    obter_nome_mes(nome[0]["mes"])
+
+    return obter_nome_mes(nome[0]["mes"])
+
+
 
 ############################################## TESTES ##############################################
 
