@@ -46,7 +46,7 @@
             <div class="text-status">
                 <h1>Mês atual: {{mes_aberto}}</h1>
                 <div class="status">
-                    <h2>STATUS</h2>
+                    <h2>ABERTO</h2>
                 </div>
 
                     
@@ -69,9 +69,9 @@
                     </div>
                     <div class="form">
 
-                        <form class="form-mov" action="">
+                        <form class="form-mov" action="/nova_mov" method="POST">
                             <h4>Tipo:</h4>
-                            <select id="categoria-select" name="categoria_id" class="field" required>
+                            <select id="categoria-select" name="categoria" class="field" required>
                                 <option value="" disabled selected>Carregando categorias...</option>
                                 <option value="">
                                     {%for categoria in categorias%}
@@ -80,8 +80,8 @@
                                     {%endfor%}
                                 </option>
                             </select>
-                            <input class="field" type="text" placeholder="Valor">
-                            <input class="field" type="text" placeholder="Descrição">
+                            <input class="field" type="text" placeholder="Valor" name="valor">
+                            <input class="field" type="text" placeholder="Descrição" name="descricao">
                             <button class="field" type="submit">Adicionar</button>
                         </form>
                     </div>
@@ -120,16 +120,13 @@
                             </div>
 
                             <div class="lista">
+                                {%for row in rows%}
                                 <div class="item">
-                                    <span class="descricao">desc teste</span>
-                                    <span class="data">12/12/2025</span>
-                                    <span class="valor">R$487,43</span>
+                                    <span class="descricao">{{row['descricao']}}</span>
+                                    <span class="data">{{row['data']}}</span>
+                                    <span class="valor">{{row['valor']}}</span>
                                 </div>
-                                <div class="item">
-                                    <span class="descricao">desc teste</span>
-                                    <span class="data">12/12/2025</span>
-                                    <span class="valor">R$200,43</span>
-                                </div>
+                                {%endfor%}
                            
 
 
@@ -158,12 +155,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  
-    <script src="../statics/theme-toggle.js"></script>
+    <script src="../static/theme-toggle.js"></script>
 </body>
 </html>
 
 
-    <script src="../statics/grafico.js"></script>
+    <script src="../static/grafico.js"></script>
 
 
 </body>

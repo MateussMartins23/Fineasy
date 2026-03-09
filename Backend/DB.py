@@ -66,24 +66,52 @@ def init_DB():
     
 
 ################################ CRIAR MOVIMENTAÇÂO #####################################
+from datetime import date
 
-def criar_movimentacao(categoria_nome,valor, descricao, data=None):
+def criar_movimentacao(categoria_nome, valor, descricao, data=None):
     con = get_connection()
     cur = con.cursor()
-    
-    #Obtendo os Ids
-    mes_id=obter_mes_atual()
-    categoria_id=get_categoria_id(categoria_nome)
-    
-    
+
+    mes_id = obter_mes_atual()
+    categoria_id = get_categoria_id(categoria_nome)
+
+    if data is None:
+        data = date.today()
+
     try:
-        if data:
-            cur.execute("INSERT INTO movimentacao (mes_id,categoria_id,valor,data,descricao) VALUES (?,?,?,?,?,?)",(mes_id,categoria_id,valor,data,descricao))
-        else:
-            cur.execute("INSERT INTO movimentacao (mes_id,categoria_id,valor,descricao) VALUES (?,?,?,?,?,?)",(mes_id,categoria_id,valor,descricao))
-    except:
-        print("Erro ao Criar movimentação.")
-            
+        cur.execute(
+            "INSERT INTO movimentacao (mes_id,categoria_id,valor,data,descricao) VALUES (?,?,?,?,?)",
+            (mes_id, categoria_id, valor, data, descricao)
+        )
+
+        con.commit()
+
+    except Exception as e:
+        print("Erro ao criar movimentação:", e)
+
+    finally:
+        con.close()
+
+def listar_movimentacoes():
+    con=get_connection()
+    cur=con.cursor()
+
+    try:
+        cur.execute("""SELECT descricao,data,valor FROM movimentacao""")
+        rows=cur.fetchall()
+
+        return rows
+    except Exception as e:
+        print("Erro ao buscar as movimentações", e)
+    finally:
+        con.close()
+
+
+
+
+
+
+
 
 #*****************************CATEGORIA*****************************#
 def get_categoria_id(categoria):
@@ -234,7 +262,8 @@ def monstrar_mes_aberto():
 
     return obter_nome_mes(nome[0]["mes"])
 
+#############################################MOVIMENTAÇÕES#########################################
 
-
-############################################## TESTES ##############################################
-
+############################################# TESTES ##############################################
+teste=listar_movimentacoes()
+print(teste[0]['valor'])
