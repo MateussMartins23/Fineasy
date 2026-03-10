@@ -37,6 +37,7 @@ def init_DB():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             mes_id INTEGER NOT NULL,
             categoria_id INTEGER NOT NULL,
+            tipo TEXT NOT NULL,
             valor REAL NOT NULL,
             data DATE NOT NULL,
             descricao TEXT,
@@ -74,14 +75,14 @@ def criar_movimentacao(categoria_nome, valor, descricao, data=None):
 
     mes_id = obter_mes_atual()
     categoria_id = get_categoria_id(categoria_nome)
-
+    tipo = get_tipo(categoria_id)
     if data is None:
         data = date.today()
 
     try:
         cur.execute(
-            "INSERT INTO movimentacao (mes_id,categoria_id,valor,data,descricao) VALUES (?,?,?,?,?)",
-            (mes_id, categoria_id, valor, data, descricao)
+            "INSERT INTO movimentacao (mes_id,categoria_id,tipo,valor,data,descricao) VALUES (?,?,?,?,?,?)",
+            (mes_id,categoria_id,tipo,valor,data,descricao)
         )
 
         con.commit()
@@ -94,13 +95,15 @@ def criar_movimentacao(categoria_nome, valor, descricao, data=None):
 
 def listar_movimentacoes():
     con=get_connection()
+    con.row_factory = sqlite3.Row
     cur=con.cursor()
 
     try:
-        cur.execute("""SELECT id,descricao,data,valor FROM movimentacao""")
+        cur.execute("""SELECT id,tipo,descricao,data,valor FROM movimentacao""")
         rows=cur.fetchall()
 
         return rows
+    
     except Exception as e:
         print("Erro ao buscar as movimentações", e)
     finally:
@@ -146,6 +149,20 @@ def criar_categoria(nome,tipo):
         print("Erro",e)
     finally:
         con.close()
+def get_tipo(categoria_id):
+    con=get_connection()    
+    cur=con.cursor()
+    
+    try:    
+        cur.execute("SELECT tipo FROM categoria WHERE id=?",(categoria_id,))
+        row=cur.fetchone()
+        return row[0] if row else None
+    except Exception as e:
+        print("Erro ao buscar o tipo da categoria", e)
+        return None
+    finally:
+        con.close()
+    
       
 
 def listar_categorias():
@@ -210,38 +227,41 @@ def obter_nome_mes(numero):
 # # Saída: Maio
 
 def obter_mes_atual():
-
     con = sqlite3.connect("./Backend/fin.db")
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute("PRAGMA foreign_keys = ON;")
 
     hoje = datetime.now()
     mes = hoje.month
     ano = hoje.year
 
-    # Verifica se já existe mês ABERTO
-    cur.execute("""
-        SELECT id FROM mes
-        WHERE mes = ? AND ano = ? AND status = 'ABERTO'
-    """, (mes, ano))
-
+    # procura o mês
+    cur.execute(
+        "SELECT id, status FROM mes WHERE mes=? AND ano=?",
+        (mes, ano)
+    )
     row = cur.fetchone()
-
     if row:
+        # se estiver fechado, abre
+        if row["status"] == "FECHADO":
+            cur.execute(
+                "UPDATE mes SET status='ABERTO' WHERE id=?",
+                (row["id"],)
+            )
+            con.commit()
+
         con.close()
         return row["id"]
-    # Se não existir, cria
-    cur.execute("""
-        INSERT INTO mes (mes, ano, status)
-        VALUES (?, ?, 'ABERTO')
-    """, (mes, ano))
-
+    # se não existir cria
+    cur.execute(
+        "INSERT INTO mes (mes, ano, status) VALUES (?, ?, 'ABERTO')",
+        (mes, ano)
+    )
     con.commit()
     mes_id = cur.lastrowid
     con.close()
 
-    return int(mes_id)
+    return mes_id
 
 
 def abrir_mes(mes, ano):
@@ -277,5 +297,18 @@ def monstrar_mes_aberto():
 #############################################MOVIMENTAÇÕES#########################################
 
 ############################################# TESTES ##############################################
-teste=listar_movimentacoes()
-print(teste[0]['valor'])
+
+
+def limpar_categorias():
+    con=get_connection()
+    cur=con.cursor()
+    
+    try:
+        for categoria in listar_categorias():
+            cur.execute('''DELETE FROM categoria WHERE nome=?''',(categoria,))
+            con.commit()
+    except Exception as e:
+        print("erro ao remover categoria",e)
+    finally:
+        con.close()
+        

@@ -121,7 +121,8 @@
 
                             <div class="lista">
                                 {%for row in rows%}
-                                <div class="item">
+                                
+                                <div class="item {{row['tipo']}}">
                                     <span class="descricao">{{row['descricao']}}</span>
                                     <span class="data">{{row['data']}}</span>
                                     <span class="valor">{{row['valor']}}</span>

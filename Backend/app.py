@@ -7,6 +7,7 @@ def home():
     categorias=DB.listar_categorias()
     mes_aberto=DB.monstrar_mes_aberto()
     rows=DB.listar_movimentacoes()
+    
     return render_template("index.html",categorias=categorias,mes_aberto=mes_aberto,rows=rows)
 
 @app.route('/nova_mov',methods=['POST'])
