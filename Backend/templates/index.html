@@ -96,19 +96,19 @@
                         <div class="cards">
                             <div class="card_1">
                                 <h2>Entradas</h2>
-                                <h3>R$3500.00</h3>
+                                <h3>R$ {{ '%.2f' % (row_resumo['total_entradas'] or 0) }}</h3>
                             </div>
                             <div class="card_2">
                                 <h2>Saidas</h2>
-                                <h3>R$2705.33</h3>
+                                <h3>R$ {{ '%.2f' % (row_resumo['total_saidas'] or 0) }}</h3>
                             </div>
                             <div class="card_3">
                                 <h2>Investimento</h2>
-                                <h3>R$600.00</h3>
+                                <h3>R$ {{ '%.2f' % (row_resumo['total_investimentos'] or 0) }}</h3>
                             </div>
                             <div class="card_4">
                                 <h2>Saldo Atual</h2>
-                                <h3>R$194.67</h3>
+                                <h3>R$ {{ '%.2f' % (row_resumo['saldo_final'] or 0) }}</h3>
                             </div>
                         </div>
                     </div>

@@ -312,3 +312,27 @@ def limpar_categorias():
     finally:
         con.close()
         
+def resumo_mensal():
+    con = get_connection()    
+    cur = con.cursor()
+
+    cur.execute('''
+        SELECT 
+        SUM(CASE WHEN tipo='entrada' THEN valor ELSE 0 END) AS total_entradas,
+        SUM(CASE WHEN tipo='saida' THEN valor ELSE 0 END) AS total_saidas,
+        SUM(CASE WHEN tipo='investimento' THEN valor ELSE 0 END) AS total_investimentos,
+
+        SUM(CASE WHEN tipo='entrada' THEN valor ELSE 0 END) -
+        (
+            SUM(CASE WHEN tipo='saida' THEN valor ELSE 0 END) +
+            SUM(CASE WHEN tipo='investimento' THEN valor ELSE 0 END)
+        ) AS saldo_final
+        
+        FROM movimentacao
+        WHERE mes_id=?
+    ''', (obter_mes_atual(),))
+
+    row = cur.fetchone()
+
+    return row
+
