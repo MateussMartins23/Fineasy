@@ -3,13 +3,17 @@ const currentTheme = document.documentElement.getAttribute('data-theme') || 'dar
 const legendColor = currentTheme === 'light' ? '#000000' : '#FFFFFF';
 
 const ctx = document.getElementById('graficoDespesas');
-
+let=fetch('/dados')
+.then(res => res.json())
+.then(data => {
+    console.log(data);
+});
 new Chart(ctx, {
     type: 'pie',
     data: {
         labels: ['Entrada', 'Investimento', 'Saida', 'Saldo_Final'],
         datasets: [{
-            data: [450, 200, 150, 100],
+            data: data,
             backgroundColor: [
                 '#59df00',
                 '#020068',
