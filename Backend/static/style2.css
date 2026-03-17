@@ -344,13 +344,13 @@ header h1:hover {
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(90deg);
   }
 }
 
 @keyframes spin-reverse {
   from {
-    transform: rotate(360deg);
+    transform: rotate(90deg);
   }
   to {
     transform: rotate(0deg);
@@ -395,15 +395,15 @@ html[data-theme="light"] .theme-btn:hover {
 }
 body {
   background-color: var(--bg-body);
-  height: 100vh;
   font-size: 16px;
   color: #eaeaf0;
-  overflow: hidden;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 section {
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .container {
@@ -411,8 +411,7 @@ section {
   display: flex;
   gap: clamp(12px, 2vw, 20px);
   justify-content: space-between;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -423,7 +422,7 @@ header {
   padding: clamp(12px, 2vh, 20px) clamp(50px, 10vw, 200px);
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   background-color: var(--bg-header);
   color: #eaeaf0;
   box-sizing: border-box;
@@ -534,18 +533,18 @@ nav ul a:hover::after {
 
 /* ==================== NOVA MOVIMENTAÇÃO ==================== */
 .nova-mov {
-  margin-top: -40px;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-nova-mov);
-  width: clamp(350px, 35vw, 550px);
-  height: clamp(280px, 45vh, 400px);
+  width: 760px; /* Reduzido de 350px-550px */
+  max-height: 380px;
   border: 2px solid rgba(0, 229, 255, 0.3);
   border-radius: 12px;
   padding: clamp(12px, 2vh, 16px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
 }
+
 
 .text-NovaMOV {
   color: #00e5ff;
@@ -638,10 +637,9 @@ select.field {
 
 /* ==================== RESUMO DO MÊS ==================== */
 .ResumoDoMes {
-  margin-top: -40px;
   display: flex;
   flex-direction: column;
-  width: clamp(350px, 65vw, 1600px);
+  width: 100%;
   height: auto;
   border: 2px solid rgba(31, 30, 37, 0.267);
   overflow: visible;
@@ -740,6 +738,7 @@ html[data-theme="light"] button.field:hover {
   display: flex;
   gap: clamp(15px, 2vw, 30px);
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 /* ==================== CARDS ==================== */
@@ -852,8 +851,8 @@ html[data-theme="light"] button.field:hover {
 
 /* ==================== ÚLTIMAS MOVIMENTAÇÕES E GRÁFICO ==================== */
 .ultimas-movimentacoes {
-  width: clamp(200px, 40vw, 580px);
-  height: clamp(220px, 45vh, 320px);
+  width: 100%;
+  height: auto;
   background-color: var(--bg-ultimas-mov);
   border-radius: 16px;
   padding: clamp(12px, 2vh, 18px);
@@ -865,8 +864,8 @@ html[data-theme="light"] button.field:hover {
 
 .Grafico-Despesas {
   background-color: var(--bg-grafico-despesas);
-  width: clamp(200px, 45vw, 620px);
-  height: clamp(220px, 45vh, 320px);
+  width: 100%;
+  height: auto;
   border: 2px solid rgba(31, 30, 37, 0.267);
   border-radius: 16px;
   padding: clamp(12px, 2vh, 18px);
@@ -887,7 +886,7 @@ html[data-theme="light"] button.field:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 0;
+  min-height: 200px;
 }
 
 .grafico-container canvas {
@@ -899,9 +898,17 @@ html[data-theme="light"] button.field:hover {
 
 .baixo {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   gap: 20px;
+  width: 100%;
 }
+
+.ultimas-movimentacoes,
+.Grafico-Despesas {
+  flex: 1;
+  width: 100%;
+}
+
 
 /* ==================== HEADER DE SEÇÃO ==================== */
 .header {
@@ -927,7 +934,7 @@ html[data-theme="light"] button.field:hover {
 /* ==================== ITENS DA LISTA ==================== */
 .lista {
   overflow-y: auto;
-  max-height: calc(100% - 80px);
+  max-height: 250px;
   flex: 1;
 }
 
@@ -1027,4 +1034,347 @@ html[data-theme="light"] button.field:hover {
 
 .trash:hover {
   opacity: 1;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .nova-mov {
+    width: 100%;
+  }
+
+  .ResumoDoMes {
+    width: 100%;
+  }
+
+  .baixo {
+    flex-direction: column;
+  }
+
+  .ultimas-movimentacoes,
+  .Grafico-Despesas {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .cards {
+    flex-wrap: wrap;
+  }
+
+  .card_1,
+  .card_2,
+  .card_3,
+  .card_4 {
+    width: calc(50% - 10px);
+  }
+
+  nav ul {
+    gap: clamp(15px, 2vw, 25px);
+    font-size: 1rem;
+  }
+}
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    height: auto;
+  }
+
+  section {
+    height: auto;
+    width: 100%;
+    min-height: auto;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 15px 20px;
+    width: 100%;
+    position: relative;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .mes-atual {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 12px 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .text-status {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .nova-mov {
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+  }
+
+  .ResumoDoMes {
+    width: 100%;
+    margin-top: 0;
+    border: none;
+  }
+
+  .resumo {
+    margin-bottom: 1.5rem;
+  }
+
+  .cards {
+    flex-direction: row;
+    margin: 1.5rem 0;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .card_1,
+  .card_2,
+  .card_3,
+  .card_4 {
+    width: calc(50% - 0.5rem);
+  }
+
+  .item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 14px;
+  }
+
+  .descricao {
+    font-weight: 600;
+  }
+
+  .data {
+    text-align: left;
+  }
+
+  .valor {
+    text-align: left;
+    font-weight: 700;
+  }
+
+  .ultimas-movimentacoes,
+  .Grafico-Despesas {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .baixo {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .theme-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Celulares pequenos (< 480px) */
+@media (max-width: 480px) {
+  body {
+    overflow-y: auto;
+    height: auto;
+  }
+
+  section {
+    height: auto;
+    min-height: 100vh;
+    width: 100%;
+  }
+
+  header {
+    padding: 12px 15px;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  nav ul {
+    gap: 8px;
+    font-size: 0.8rem;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    padding: 8px;
+  }
+
+  .container {
+    padding: 0.75rem;
+    gap: 1rem;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .mes-atual {
+    padding: 12px 15px;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-direction: column;
+  }
+
+  .text-status {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .status {
+    width: 100px;
+    font-size: 11px;
+  }
+
+  .Fechar-MesBTN {
+    width: 100px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .nova-mov {
+    padding: 12px;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .text-NovaMOV {
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  .form-mov h4 {
+    font-size: 11px;
+  }
+
+  .cards {
+    gap: 0.75rem;
+    margin: 1rem 0;
+    flex-direction: column;
+  }
+
+  .card_1,
+  .card_2,
+  .card_3,
+  .card_4 {
+    width: 100%;
+  }
+
+  .card_1 h2,
+  .card_2 h2,
+  .card_3 h2,
+  .card_4 h2 {
+    font-size: 0.9rem;
+  }
+
+  .card_1 h3,
+  .card_2 h3,
+  .card_3 h3,
+  .card_4 h3 {
+    font-size: 1.3rem;
+  }
+
+  .lista {
+    max-height: 250px;
+  }
+
+  .item {
+    padding: 10px 12px;
+    margin-bottom: 0.75rem;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .descricao,
+  .valor {
+    font-size: 0.85rem;
+  }
+
+  .data {
+    font-size: 0.75rem;
+    text-align: left;
+  }
+
+  .valor {
+    text-align: left;
+  }
+
+  .ResumoDoMes {
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .ultimas-movimentacoes,
+  .Grafico-Despesas {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .baixo {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: 2px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(10, 13, 22, 0.5);
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #00e5ff;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #00b8d4;
+}
+
+html[data-theme="light"] body::-webkit-scrollbar-thumb {
+  background: #1976d2;
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.3);
+}
+
+html[data-theme="light"] body::-webkit-scrollbar-thumb:hover {
+  background: #1565c0;
 }

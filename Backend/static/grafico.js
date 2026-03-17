@@ -7,13 +7,13 @@ const ctx = document.getElementById('graficoDespesas');
 new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ['Alimentação', 'Transporte', 'Lazer', 'Outros'],
+        labels: ['Entrada', 'Investimento', 'Saida', 'Saldo_Final'],
         datasets: [{
             data: [450, 200, 150, 100],
             backgroundColor: [
                 '#59df00',
                 '#020068',
-                '#710486',
+                '#860411',
                 '#ffee00'
             ],
             borderWidth: 0

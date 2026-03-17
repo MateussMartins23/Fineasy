@@ -16,7 +16,7 @@ def nova_mov():
     categoria=request.form['categoria']
     valor=request.form['valor']
     descricao=request.form['descricao']
-
+    valor=float(valor.replace(',','.'))
     DB.criar_movimentacao(categoria,valor,descricao)
 
     
