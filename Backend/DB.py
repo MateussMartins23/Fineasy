@@ -7,7 +7,8 @@ def get_connection():
     con.execute("PRAGMA foreign_keys = ON;")
     return con
 
-def init_DB():
+def init_Db():
+    print("Entrou")
     con = get_connection()
     cur = con.cursor()
     
@@ -227,7 +228,7 @@ def obter_nome_mes(numero):
 # # Saída: Maio
 
 def obter_mes_atual():
-    con = sqlite3.connect("./Backend/fin.db")
+    con = get_connection()
     con.row_factory = sqlite3.Row
     cur = con.cursor()
 
@@ -336,3 +337,25 @@ def resumo_mensal():
 
     return row
 
+
+
+
+
+
+
+
+
+##################### INICIANDO O BANCO DE DADOS #######################
+def iniciar_DB():
+    init_Db()
+    iniciar_meses(2026)
+    criar_categoria("Salario","entrada")
+    criar_categoria("Extra","entrada")
+    criar_categoria("Lazer","saida")
+    criar_categoria("Contas","saida")
+    criar_categoria("Renda fixa","investimento")
+    criar_categoria("Renda variavel","investimento")
+
+
+abrir_mes(3,2026)
+ 

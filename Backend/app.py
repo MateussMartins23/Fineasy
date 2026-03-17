@@ -1,4 +1,4 @@
-from flask import Flask, render_template,url_for,request,redirect
+from flask import Flask, render_template,url_for,request,redirect,jsonify
 import DB
 app = Flask(__name__)
 
@@ -28,6 +28,11 @@ def del_mov():
     DB.del_mov(mov_id)
 
     return redirect(url_for('home'))
+
+@app.route("/dados")
+def dados():
+    row=DB.resumo_mensal()
+    return jsonify([row['total_entradas'],row["total_saidas"],row['total_investimentos']])
 
 if __name__ == "__main__":
     app.run(debug=True)
