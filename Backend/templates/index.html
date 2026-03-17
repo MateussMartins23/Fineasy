@@ -125,7 +125,7 @@
                                 <div class="item {{row['tipo']}}">
                                     <span class="descricao">{{row['descricao']}}</span>
                                     <span class="data">{{row['data']}}</span>
-                                    <span class="valor">{{row['valor']}}</span>
+                                    <span class="valor">R$ {{(row['valor'] or 0) }}</span>
 
                                     <form action="/delete_mov" method="POST" >
                                     <input name="id" type= 'hidden' value="{{row['id']}}">

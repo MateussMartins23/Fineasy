@@ -11,13 +11,13 @@ let=fetch('/dados')
 new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ['E', 'Transporte', 'Lazer'],
+        labels: ['Entrada', 'Investimento', 'Saida', 'Saldo_Final'],
         datasets: [{
             data: data,
             backgroundColor: [
                 '#59df00',
                 '#020068',
-                '#710486',
+                '#860411',
                 '#ffee00'
             ],
             borderWidth: 0
